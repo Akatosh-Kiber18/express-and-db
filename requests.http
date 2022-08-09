@@ -1,0 +1,35 @@
+#### GET tasks
+
+GET http://localhost:3000/tasks
+Accept: application/json
+
+#### POST tasks
+
+POST http://localhost:3000/tasks
+Accept: application/json
+Content-Type: application/json
+
+{"name": "Go for a walk", "done": false}
+
+
+#### DELETE tasks
+
+DELETE http://localhost:3000/tasks/2
+Accept: application/json
+Content-Type: application/json
+
+#### PATCH tasks
+
+PATCH http://localhost:3000/tasks/5
+Accept: application/json
+Content-Type: application/json
+
+{"name": "Buy some bananas"}
+
+#### PUT tasks
+
+PUT http://localhost:3000/tasks/8
+Accept: application/json
+Content-Type: application/json
+
+{"name": "Buy", "done": true}
