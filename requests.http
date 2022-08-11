@@ -9,7 +9,13 @@ POST http://localhost:3000/tasks
 Accept: application/json
 Content-Type: application/json
 
-{"name": "Go for a walk", "done": false}
+{
+  "name": "new task",
+  "due_date": "2022-08-12",
+  "done": false,
+  "list_id": 3,
+  "description": "description of new task"
+}
 
 
 #### DELETE tasks
@@ -20,16 +26,39 @@ Content-Type: application/json
 
 #### PATCH tasks
 
-PATCH http://localhost:3000/tasks/5
+PATCH http://localhost:3000/tasks/4
 Accept: application/json
 Content-Type: application/json
 
-{"name": "Buy some bananas"}
+{
+  "name": "Buy some bananas",
+  "list_id": 3,
+  "due_date": "2022-08-11"
+}
 
 #### PUT tasks
 
-PUT http://localhost:3000/tasks/8
+PUT http://localhost:3000/tasks/4
 Accept: application/json
 Content-Type: application/json
 
-{"name": "Buy", "done": true}
+{
+  "name": "Fly away",
+  "done": true,
+  "description": "I wont to fly away"
+}
+
+#### GET dashboard
+
+GET http://localhost:3000/dashboard
+Accept: application/json
+
+#### GET today Tasks
+
+GET http://localhost:3000/collection/today
+Accept: application/json
+
+#### GET tasks from list
+
+GET http://localhost:3000/lists/3/tasks
+Accept: application/json

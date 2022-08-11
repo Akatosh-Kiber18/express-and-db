@@ -1,20 +1,20 @@
 import express, {Router} from "express";
 import {createTask, deleteTask, getOneTask, getTasks, supersedeTask, updateTask} from "./task.models.js";
 
-export const router = new Router();
-router.use(express.json());
+export const taskRoutes = new Router();
+taskRoutes.use(express.json());
 
-router.post('/tasks', createTaskHandler);
-router.get('/tasks', getTasksHandler);
-router.get('/tasks/:id', getOneTaskHandler);
-router.patch('/tasks/:id', updateTaskHandler);
-router.delete('/tasks/:id', deleteTaskHandler);
-router.put('/tasks/:id', supersedeTaskHandler);
+taskRoutes.post('/tasks', createTaskHandler);
+taskRoutes.get('/tasks', getTasksHandler);
+taskRoutes.get('/tasks/:id', getOneTaskHandler);
+taskRoutes.patch('/tasks/:id', updateTaskHandler);
+taskRoutes.delete('/tasks/:id', deleteTaskHandler);
+taskRoutes.put('/tasks/:id', supersedeTaskHandler);
 
 function createTaskHandler(req, res) {
-    const {name, done} = req.body;
-    createTask(name, done)
-        .then(task => res.status(201).json(task))
+    const {name, due_date, done, list_id, description} = req.body;
+    createTask(name, due_date, done, list_id, description)
+        .then(task => res.json(task))
         .catch(() => res.sendStatus(500));
 }
 
@@ -35,7 +35,7 @@ function updateTaskHandler(req, res) {
     const id = req.params.id
     getOneTask(id)
         .then(oldTask => Object.assign(oldTask, req.body))
-        .then(({name, done}) => updateTask(id, name, done))
+        .then(({name, due_date, done, list_id, description}) => updateTask(id, name, due_date, done, list_id, description))
         .then(task => res.json(task))
         .catch(() => res.sendStatus(500))
 }
@@ -49,9 +49,8 @@ function deleteTaskHandler(req, res) {
 
 function supersedeTaskHandler(req, res) {
     const id = req.params.id;
-    const name = req.body.name || "Task name";
-    const done = req.body.done || false;
-    supersedeTask(id, name, done)
+    const {name, due_date, done, list_id, description} = req.body;
+    supersedeTask(id, name, due_date, done, list_id, description)
         .then(task => res.json(task))
         .catch(() => res.sendStatus(500))
 }
