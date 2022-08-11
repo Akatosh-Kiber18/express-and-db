@@ -60,5 +60,5 @@ Accept: application/json
 
 #### GET tasks from list
 
-GET http://localhost:3000/lists/3/tasks
+GET http://localhost:3000/lists/3/tasks?all=true
 Accept: application/json

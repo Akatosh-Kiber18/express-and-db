@@ -1,3 +1,5 @@
+import kn from '../knexfile.js'
+
 import {pool} from "../database.js";
 
 const printError = (err) => {
@@ -6,10 +8,8 @@ const printError = (err) => {
 };
 
 export function getTasks() {
-    return pool
-        .query('SELECT * FROM tasks')
-        .catch(printError)
-        .then(res => res.rows);
+    return kn.select('*')
+        .from('tasks')
 }
 
 export function createTask(name, due_date, done, list_id, description) {

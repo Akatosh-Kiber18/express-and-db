@@ -1,53 +1,51 @@
-import {pool} from "../database.js";
+import kn from "../knexfile.js";
 
 const printError = (err) => {
     console.error(err);
     return Promise.reject(err);
 };
 
-
 export function taskCountOnToday() {
     const date = new Date();
 
-    return pool
-        .query(`SELECT COUNT(name)
-                FROM tasks
-                WHERE due_date BETWEEN $1 AND $2`, [date, date])
-        .then(res => res.rows[0])
+    return kn('tasks')
+        .count('name')
+        .whereBetween('due_date', [date, date])
 }
 
 export function groupNotCompletedTasksCountByListName() {
-    return pool
-        .query(`SELECT l.name,
-                       COUNT(t.done = false OR null)
-                           AS "Not Completed Tasks Count"
-                FROM tasks AS t
-                         RIGHT JOIN lists AS l ON l.id = t.list_id
-                GROUP BY l.name`)
-        .then(res => res.rows)
+
+    return kn
+        .select('lists.name')
+        .count('tasks.name')
+        .whereIn('tasks.done', [false])
+        .from('tasks')
+        .rightJoin('lists', 'lists.id', 'tasks.list_id')
+        .groupBy('lists.name')
 }
 
 export function tasksOnToday() {
     const date = new Date();
 
-    return pool
-        .query(`SELECT t.name AS task, l.name AS list
-                       FROM tasks AS t
-                                LEFT JOIN lists AS l ON l.id = t.list_id
-                       WHERE t.due_date BETWEEN $1 AND $2`, [date, date]
-    )
-        .catch(printError)
-        .then(res => res.rows)
+    return kn
+        .select('tasks.name as task', 'lists.name as list')
+        .whereBetween('tasks.due_date', [date, date])
+        .from('tasks')
+        .leftJoin('lists', 'lists.id','tasks.list_id')
+
 }
 
 export function notAllTasksFromList(listId) {
-    return pool
-        .query(`SELECT * FROM tasks WHERE list_id = $1 AND done = false`,[listId])
-        .then(res => res.rows)
+    return kn
+        .select('*')
+        .from('tasks')
+        .whereIn('list_id', [listId])
+        .andWhere('done', false)
 }
 
 export function allTasksFromList(listId) {
-    return pool
-        .query(`SELECT * FROM tasks WHERE list_id = $1`,[listId])
-        .then(res => res.rows)
+    return kn
+        .select('*')
+        .from('tasks')
+        .whereIn('list_id', [listId])
 }
