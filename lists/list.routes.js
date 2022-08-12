@@ -3,7 +3,6 @@ import {
     taskCountOnToday,
     groupNotCompletedTasksCountByListName,
     tasksOnToday,
-    notAllTasksFromList,
     allTasksFromList
 } from "./list.models.js";
 
@@ -26,15 +25,9 @@ function todayTasksHandler(req, res) {
 }
 
 function tasksFromListHandler(req, res) {
-    const all = req.query.all || false
+    const all = req.query.all||false
     const listId = req.params['listId']
-    if (all){
-        allTasksFromList(listId)
+        allTasksFromList(listId, all)
             .then(tasks => res.json(tasks))
             .catch(() => res.sendStatus(500))
-        return
-    }
-    notAllTasksFromList(listId)
-        .then(tasks => res.json(tasks))
-        .catch(() => res.sendStatus(500))
 }
