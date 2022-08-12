@@ -1,6 +1,6 @@
 #### GET tasks
 
-GET http://localhost:3000/tasks
+GET http://localhost:3000/tasks/
 Accept: application/json
 
 #### POST tasks
@@ -12,15 +12,15 @@ Content-Type: application/json
 {
   "name": "new task",
   "due_date": "2022-08-12",
-  "done": false,
-  "list_id": 3,
+  "done": true,
+  "list_id": 1,
   "description": "description of new task"
 }
 
 
 #### DELETE tasks
 
-DELETE http://localhost:3000/tasks/2
+DELETE http://localhost:3000/tasks/3
 Accept: application/json
 Content-Type: application/json
 
@@ -31,21 +31,21 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "name": "Buy some bananas",
+  "name": "Buy some potato",
   "list_id": 3,
   "due_date": "2022-08-11"
 }
 
 #### PUT tasks
 
-PUT http://localhost:3000/tasks/4
+PUT http://localhost:3000/tasks/5
 Accept: application/json
 Content-Type: application/json
 
 {
   "name": "Fly away",
   "done": true,
-  "description": "I wont to fly away"
+  "description": "I want to fly away"
 }
 
 #### GET dashboard
@@ -60,5 +60,5 @@ Accept: application/json
 
 #### GET tasks from list
 
-GET http://localhost:3000/lists/3/tasks?all=true
+GET http://localhost:3000/lists/1/tasks?all=true
 Accept: application/json
