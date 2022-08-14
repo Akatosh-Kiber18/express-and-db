@@ -49,7 +49,11 @@ function deleteTaskHandler(req, res) {
 
 function supersedeTaskHandler(req, res) {
     const id = req.params.id;
-    const {name, due_date, done, list_id, description} = req.body;
+    const done = req.body.done;
+    const name = req.body.title || null;
+    const due_date = req.body.due_date || null;
+    const list_id = req.body.list_id || null;
+    const description = req.body.description || null;
     supersedeTask(id, name, due_date, done, list_id, description)
         .then(task => res.json(task))
         .catch(() => res.sendStatus(500))

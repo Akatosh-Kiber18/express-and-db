@@ -1,6 +1,6 @@
 #### GET tasks
 
-GET http://localhost:3000/tasks/
+GET http://localhost:3000/tasks/6
 Accept: application/json
 
 #### POST tasks
@@ -31,7 +31,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "name": "Buy some potato",
+  "name": "Buy",
   "list_id": 3,
   "due_date": "2022-08-11"
 }
@@ -43,9 +43,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "name": "Fly away",
-  "done": true,
-  "description": "I want to fly away"
+  "done": true
 }
 
 #### GET dashboard

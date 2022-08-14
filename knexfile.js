@@ -6,8 +6,8 @@ const kn = new knex(
         connection: {
             host: '127.0.0.1',
             port: 5432,
-            user: 'todolist_app',
-            password: '12345678',
+            user: 'postgres',
+            password: 'postgres',
             database: 'postgres'
         }
     }
