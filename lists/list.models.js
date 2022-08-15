@@ -33,10 +33,12 @@ export function tasksOnToday() {
 }
 
 export function allTasksFromList(listId, all) {
-    return kn
+    let query = kn
         .select('*')
         .from('tasks')
-        .whereIn('list_id', [listId])
-        .andWhere('done', false)
-        .orWhere('done', all)
+        .whereIn('list_id', [listId]);
+    if (!all) {
+        query = query.andWhere('done', false)
+    }
+    return query
 }
