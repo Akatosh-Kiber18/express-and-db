@@ -11,9 +11,9 @@ export function getTasks() {
         .from('tasks')
 }
 
-export function createTask(name, due_date, done, list_id, description) {
+export function createTask(name, dueDate, done, description, deleted) {
     return kn('tasks')
-        .insert({name, due_date, done, list_id, description})
+        .insert({name, dueDate, done, description, deleted})
         .returning('*')
 }
 
@@ -24,10 +24,10 @@ export function getOneTask(id) {
         .whereIn('id',[id])
 }
 
-export function updateTask(id, name, due_date, done, list_id, description) {
+export function updateTask(id, name, dueDate, done, description, deleted) {
     return kn('tasks')
         .whereIn('id', [id])
-        .update({name, due_date, done, list_id, description})
+        .update({name, dueDate, done, description, deleted})
         .returning('*')
 }
 

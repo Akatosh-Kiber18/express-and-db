@@ -1,6 +1,6 @@
 #### GET tasks
 
-GET http://localhost:3000/tasks/6
+GET http://localhost:3000/tasks
 Accept: application/json
 
 #### POST tasks
