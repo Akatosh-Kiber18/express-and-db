@@ -1,7 +1,7 @@
 import express, {Router} from "express";
 import {createTask, deleteTask, getOneTask, getTasks, supersedeTask, updateTask} from "./task.models.js";
-
 export const taskRoutes = new Router();
+
 taskRoutes.use(express.json());
 
 taskRoutes.post('/tasks', createTaskHandler);
@@ -35,7 +35,7 @@ function updateTaskHandler(req, res) {
     const id = req.params.id
     getOneTask(id)
         .then(oldTask => Object.assign(oldTask, req.body))
-        .then(({name, dueDate, done, description, deleted}) => updateTask(id, name, dueDate, done, description, deleted))
+        .then(({name, dueDate, done, description}) => updateTask(id, name, dueDate, done, description))
         .then(task => res.json(task))
         .catch(() => res.sendStatus(500))
 }
